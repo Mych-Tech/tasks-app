@@ -1,0 +1,121 @@
+
+.sec-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #b8bcd0;
+  margin: 22px 0 10px 2px;
+}
+
+
+.task-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.task-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 15px 14px 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.28s cubic-bezier(0.34,1.4,0.64,1);
+  transition: transform 0.15s;
+}
+.task-card:active { transform: scale(0.98); }
+
+@keyframes popIn {
+  from { opacity:0; transform: translateY(-10px) scale(0.96); }
+  to   { opacity:1; transform: translateY(0)      scale(1);    }
+}
+
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  border-radius: 5px 0 0 5px;
+}
+.task-card.high::before   { background: #f05252; }
+.task-card.medium::before { background: #f59f00; }
+.task-card.low::before    { background: #3b5bff; }
+
+
+.check {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2.5px solid #dde0ee;
+  background: #eef0f6;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.check:active { transform: scale(0.80); }
+.check.checked {
+  background: #3b5bff;
+  border-color: #3b5bff;
+}
+.check.checked::after {
+  content: '';
+  width: 7px; height: 11px;
+  border: 2.5px solid white;
+  border-top: none; border-left: none;
+  transform: rotate(45deg) translate(-1px,-1px);
+  display: block;
+}
+
+
+.task-text { flex: 1; min-width: 0; }
+.task-title {
+  font-size: 0.93rem;
+  font-weight: 700;
+  color: #0f1117;
+  line-height: 1.35;
+  word-break: break-word;
+  transition: color 0.2s;
+}
+.task-title.done {
+  text-decoration: line-through;
+  color: #c0c4d8;
+  font-weight: 500;
+}
+.task-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+.pill {
+  font-size: 0.69rem;
+  font-weight: 600;
+  color: #9499b0;
+  background: #eef0f6;
+  border-radius: 100px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+
+.del-btn {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  border: none;
+  background: #fff0f0;
+  color: #f05252;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.del-btn:active { background: #f05252; color: #fff; transform: scale(0.88); }

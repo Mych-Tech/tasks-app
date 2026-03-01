@@ -1,0 +1,30 @@
+
+.chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  background: #ffffff;
+  color: #9499b0;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  transition: all 0.2s;
+}
+.chip.active {
+  background: #3b5bff;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(59,91,255,0.32);
+}
+.chip:active { transform: scale(0.92); }

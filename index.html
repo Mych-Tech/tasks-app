@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Tasks</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/chips.css">
+  <link rel="stylesheet" href="css/tasks.css">
+  <link rel="stylesheet" href="css/empty.css">
+  <link rel="stylesheet" href="css/bottom-nav.css">
+  <link rel="stylesheet" href="css/modal.css">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3b5bff">
+</head>
+<body>
+<div class="app">
+
+  <div class="content" id="content">
+    <div class="header">
+      <div>
+        <h1 id="pageTitle">All Tasks</h1>
+        <div class="task-count" id="taskCount">0 tasks</div>
+      </div>
+      <button class="add-btn" onclick="openModal()" aria-label="Add task">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="search-wrap">
+      <span class="search-ico">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f1117" stroke-width="2.2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </span>
+      <input class="search-input" id="searchInput" placeholder="Search tasks..." oninput="render()">
+    </div>
+
+    <div class="chips" id="chipsRow">
+      <button class="chip active" onclick="setChip(this,'all')">All</button>
+      <button class="chip" onclick="setChip(this,'high')">🔴 High</button>
+      <button class="chip" onclick="setChip(this,'medium')">🟡 Medium</button>
+      <button class="chip" onclick="setChip(this,'low')">🔵 Low</button>
+    </div>
+
+    <div id="taskList"></div>
+
+    <div class="empty" id="emptyState" style="display:none;">
+      <div class="empty-ring">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c8cce0" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <h3 id="emptyTitle">No tasks found</h3>
+      <p id="emptyMsg">Tap + to add your first task!</p>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="setTab(this,'all','All Tasks')">
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span class="nav-lbl">All</span>
+    </button>
+    <button class="nav-btn" onclick="setTab(this,'today','Today')">
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="2" x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="2" y1="12" x2="4" y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <span class="nav-lbl">Today</span>
+    </button>
+    <button class="nav-btn" onclick="setTab(this,'upcoming','Upcoming')">
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span class="nav-lbl">Upcoming</span>
+    </button>
+    <button class="nav-btn" onclick="setTab(this,'done','Completed')">
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+      <span class="nav-lbl">Done</span>
+    </button>
+    <button class="nav-btn" onclick="setTab(this,'schedule','Schedule')">
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <circle cx="3" cy="6"  r="1.5" fill="#b8bcd0" stroke="none"/>
+        <circle cx="3" cy="12" r="1.5" fill="#b8bcd0" stroke="none"/>
+        <circle cx="3" cy="18" r="1.5" fill="#b8bcd0" stroke="none"/>
+      </svg>
+      <span class="nav-lbl">Schedule</span>
+    </button>
+  </nav>
+</div>
+
+<div class="overlay" id="overlay" style="display:none;" onclick="closeIfOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-bar"></div>
+    <h2>New Task</h2>
+
+    <div class="field">
+      <label>Title</label>
+      <input id="fTitle" placeholder="What needs to be done?" onkeydown="if(event.key==='Enter') submit()">
+    </div>
+    <div class="field">
+      <label>Note (optional)</label>
+      <input id="fNote" placeholder="Add a note...">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Due</label>
+        <select id="fDate">
+          <option value="Today">📅 Today</option>
+          <option value="Tomorrow">🌅 Tomorrow</option>
+          <option value="This week">📆 This week</option>
+          <option value="Upcoming">🗓️ Upcoming</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Priority</label>
+        <select id="fPriority">
+          <option value="high">🔴 High</option>
+          <option value="medium" selected>🟡 Medium</option>
+          <option value="low">🔵 Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Category</label>
+      <select id="fCategory">
+        <option value="School">📚 School</option>
+        <option value="Capstone">🚀 Capstone</option>
+        <option value="Personal">👤 Personal</option>
+        <option value="Work">💼 Work</option>
+        <option value="Health">💪 Health</option>
+        <option value="Other">📌 Other</option>
+      </select>
+    </div>
+    <button class="submit-btn" onclick="submit()">Add Task ✓</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

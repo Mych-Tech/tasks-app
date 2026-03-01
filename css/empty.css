@@ -1,0 +1,32 @@
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px 40px;
+  gap: 14px;
+  animation: fadeIn 0.35s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.empty-ring {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  border: 2.5px solid #dde0ee;
+  background: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  margin-bottom: 4px;
+}
+.empty h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #555a80;
+}
+.empty p {
+  font-size: 0.82rem;
+  color: #b8bcd0;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 210px;
+}
