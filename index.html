@@ -232,7 +232,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/tasks-app/sw.js')
+      navigator.serviceWorker.register('/sw.js')
         .then(() => console.log('Tasko SW registered ✅'))
         .catch(err => console.log('SW error:', err));
     });
