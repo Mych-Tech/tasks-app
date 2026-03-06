@@ -44,7 +44,7 @@ function render() {
     list.innerHTML = '';
     empty.style.display = 'flex';
     const msgs = {
-      today:    ['No tasks today! 🎉',    'Enjoy your day or tap + to add one.'],
+      today:    ['No tasks today!',    'Enjoy your day or tap + to add one.'],
       upcoming: ['Nothing upcoming',       'Add a task with a future due date.'],
       done:     ['No completed tasks yet', 'Complete a task to see it here.'],
       schedule: ['No scheduled tasks',     'Add a due date to a task to see it here.'],
