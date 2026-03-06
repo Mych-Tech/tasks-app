@@ -1,7 +1,7 @@
 
 const DB = {
-  get:    ()  => JSON.parse(localStorage.getItem('tasks_v4') || '[]'),
-  save:   d   => localStorage.setItem('tasks_v4', JSON.stringify(d)),
+  get:    ()  => JSON.parse(localStorage.getItem('tasks_v5') || '[]'),
+  save:   d   => localStorage.setItem('tasks_v5', JSON.stringify(d)),
   add:    t   => { const d = DB.get(); d.unshift(t); DB.save(d); },
   toggle: id  => DB.save(DB.get().map(t => t.id === id ? {...t, done: !t.done} : t)),
   del:    id  => DB.save(DB.get().filter(t => t.id !== id))
@@ -190,6 +190,4 @@ function setChip(btn, chip) {
   activeChip = chip;
   render();
 }
-
-
 render();
